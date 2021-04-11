@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caner-security-deployment
+  labels:
+    app: caner-security
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: caner-security
+  template:
+    metadata:
+      labels:
+        app: caner-security
+    spec:
+      containers:
+        - name: caner-security
+          image: caner-security/security
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: caner-security-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: caner-security
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8080
+      nodePort: 31082
