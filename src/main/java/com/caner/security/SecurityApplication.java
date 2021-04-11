@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
-// @ComponentScan(basePackages = { "com.turkcell.fizy.customer", "com.turkcell.fizy.common" })
+// @ComponentScan(basePackages = { "com.caner.customer", "com.caner.common" })
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling
