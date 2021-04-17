@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: caner-security-deployment
   labels:
     app: caner-security
 spec:
+  serviceName: security-app
   replicas: 1
   selector:
     matchLabels:
@@ -20,6 +21,14 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - mountPath: /c/Users/ttmkurtul
+              name: my-volume
+      volumes:
+        - name: my-volume
+          hostPath:
+            path: /c/Users
+
 ---
 apiVersion: v1
 kind: Service

@@ -7,7 +7,7 @@ spring:
   main:
     log-startup-info: false
 
-# jackson:
+# son:
   # property-naming-strategy: UPPER_CAMEL_CASE
   # serialization:
     # indent-output: true

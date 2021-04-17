@@ -1,0 +1,17 @@
+# https://www.magalix.com/blog/kafka-on-kubernetes-and-deploying-best-practice
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-service
+  labels:
+    name: kafka
+spec:
+  type: NodePort
+  ports:
+    - port: 9092
+      protocol: TCP
+      targetPort: 9092
+      nodePort: 31090
+  selector:
+    app: kafka
+    id: "0"

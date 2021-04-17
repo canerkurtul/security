@@ -1,12 +1,13 @@
 /**
  * Ctrl + Shift + A
- * Alt + Enter  (gri boyayınca)
- * Ctrl + O             -- Override Implement methods
- * Ctrl + Shift + V     -- paste multiple choice
- * Ctrl + D             -- duplicate lines
- * Ctrl + Backspace     -- Delete lines
- * Ctrl + Alt + SHift + U   -- pom.xml dependency analyzer
+ * Ctrl + Shift + F         -- Find in Files
+ * Alt + Enter  (gri boyayinca)
+ * Ctrl + O                 -- Override Implement methods
+ * Ctrl + Shift + V         -- paste multiple choice
+ * Ctrl + D                 -- duplicate lines
+ * Ctrl + Backspace         -- Delete lines
+ * Ctrl + Alt + Shift + U   -- pom.xml dependency analyzer
  *
  * Multi line comment
- * Case sensitive çalışıyor
+ * Case sensitive calisiyor
  */
