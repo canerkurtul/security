@@ -21,9 +21,9 @@ public class SecurityApplication {
 
     private final Logger logger = LoggerFactory.getLogger(SecurityApplication.class);
 
-    @Autowired private KafkaConsumerProducer kafkaProducer;
+    @Autowired(required = false) private KafkaConsumerProducer kafkaProducer;
 
-    @Autowired private RedisClient redisClient;
+    @Autowired(required = false) private RedisClient redisClient;
 
     public static void main(String[] args) {
         SpringApplication.run(SecurityApplication.class, args);
@@ -33,16 +33,19 @@ public class SecurityApplication {
     public void periodicLog() {
         String msg = "heartbeat " + System.currentTimeMillis();
         System.out.println("\n" + msg);
-        kafkaProducer.sendMessage("KAFKA " + msg);
-
-        kafkaProducer.sendMessage2(new Artist("Artist " + System.currentTimeMillis(), "TR"));
+        if (kafkaProducer != null) {
+            kafkaProducer.sendMessage("KAFKA " + msg);
+            kafkaProducer.sendMessage2(new Artist("Artist " + System.currentTimeMillis(), "TR"));
+        }
 
         String millis = "" + System.currentTimeMillis();
-        redisClient.write("MYKEY", millis);
-        redisClient.read("MYKEY");
+        if (redisClient != null) {
+            redisClient.write("MYKEY", millis);
+            redisClient.read("MYKEY");
 
-        redisClient.writeArtist(new Artist(millis, "TR"));
-        redisClient.readArtist(millis);
+            redisClient.writeArtist(new Artist(millis, "TR"));
+            redisClient.readArtist(millis);
+        }
 
         logger.warn("Schedule task finished");
     }

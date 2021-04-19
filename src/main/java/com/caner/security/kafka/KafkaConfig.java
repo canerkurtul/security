@@ -18,6 +18,10 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * https://docs.spring.io/spring-kafka/reference/html/
+ * https://www.baeldung.com/spring-kafka
+ */
 @EnableKafka
 @Configuration
 public class KafkaConfig {

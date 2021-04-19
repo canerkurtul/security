@@ -27,7 +27,7 @@ spec:
       volumes:
         - name: my-volume
           hostPath:
-            path: /c/Users
+            path: /c/Users  # https://minikube.sigs.k8s.io/docs/handbook/mount/
 
 ---
 apiVersion: v1

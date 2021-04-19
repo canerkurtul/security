@@ -14,8 +14,14 @@ import java.util.Optional;
 @RequestMapping("/artists")
 public class ArtistController {
 
-    @Autowired private ArtistRepo artistRepo;
-    @Autowired private ArtistService artistService;
+    private final ArtistRepo artistRepo;
+    private final ArtistService artistService;
+
+    @Autowired
+    public ArtistController(ArtistRepo artistRepo, ArtistService artistService) {
+        this.artistRepo = artistRepo;
+        this.artistService = artistService;
+    }
 
     @GetMapping(path = "/count" )
     public String getCount() {
