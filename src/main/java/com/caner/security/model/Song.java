@@ -1,9 +1,8 @@
-package com.caner.security.models;
+package com.caner.security.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -20,9 +19,12 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NonNull
+    @Column(nullable = false)
     private String title;
 
-    private String artist;
+    // @Basic(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Artist artist;
+
 
 }

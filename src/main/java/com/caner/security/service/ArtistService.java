@@ -1,26 +1,12 @@
 package com.caner.security.service;
 
 import com.caner.security.repository.ArtistRepo;
-import com.caner.security.models.Artist;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.caner.security.model.Artist;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Ctrl + Shift + A
- * Alt + Enter  (gri boyayınca)
- * Ctrl + O             -- Override Implement methods
- * Ctrl + Shift + V     -- paste multiple choice
- * Ctrl + D             -- duplicate lines
- * Ctrl + Backspace     -- Delete lines
- * Ctrl + Alt + SHift + U   -- pom.xml dependency analyzer
- *
- * Multi line comment
- * Case sensitive çalışıyor
- */
 
 @Service
 public class ArtistService {
@@ -34,6 +20,8 @@ public class ArtistService {
     }
 
 
+    @Cacheable(cacheManager = "RedisCacheManager", cacheNames = "cache-24")
+    @TimeToLive()
     public List<Artist> queryByName(String name) {
         List<Artist> lst = artistRepo.queryArtistsByNameLike("%" +name+ "%");
         myAsync.countAndPrintLog();

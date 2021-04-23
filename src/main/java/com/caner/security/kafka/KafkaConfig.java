@@ -1,12 +1,13 @@
 package com.caner.security.kafka;
 
-import com.caner.security.models.Artist;
+import com.caner.security.model.Artist;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -24,9 +25,14 @@ import java.util.Map;
  */
 @EnableKafka
 @Configuration
+//@ConditionalOnProperty(
+//        value = "spring.profiles.active",
+//        havingValue = "prod",
+//        matchIfMissing = true)
 public class KafkaConfig {
 
-    public static final String KAFKA_SERVER         = "kafka-service:9092";
+    @Value("${spring.kafka.bootstrap-servers}")
+    public String KAFKA_SERVER;
 
     public static final String KAFKA_TOPIC_1        = "tpk1";
     public static final String KAFKA_TOPIC_2        = "tpk2";

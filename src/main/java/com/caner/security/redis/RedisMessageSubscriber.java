@@ -1,19 +1,19 @@
 package com.caner.security.redis;
 
-import com.caner.security.models.Artist;
+import com.caner.security.model.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.SerializationUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
+//@ConditionalOnProperty(
+//        value = "spring.profiles.active",
+//        havingValue = "prod",
+//        matchIfMissing = true)
 public class RedisMessageSubscriber implements MessageListener {
 
     @Autowired

@@ -1,6 +1,6 @@
 package com.caner.security.repository;
 
-import com.caner.security.models.Artist;
+import com.caner.security.model.Artist;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -41,7 +41,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     // AUTHORIZE CONFIG
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        if (activeProfiles.contains("dev")) {
+        if (activeProfiles.contains("dev") || activeProfiles.contains("local")) {
             http.authorizeRequests().antMatchers("/**").permitAll();
             http.csrf().disable();
             http.headers().frameOptions().disable();

@@ -22,9 +22,8 @@ public class ArtistServiceAsync {
         System.out.println("ARTIST COUNT IS: " + cnt);
     }
 
-
     @PostConstruct
     public void postConstructActions() {
-        System.out.println("postConstructActions triggered");
+        System.out.println("Execute at PostConstruct");
     }
 }

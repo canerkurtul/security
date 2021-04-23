@@ -1,15 +1,5 @@
 #### https://minikube.sigs.k8s.io/docs/start/
 #### https://gitlab.com/nanuchi/youtube-tutorial-series/-/blob/master/basic-kubectl-commands/cli-commands.md
-### install hyperhit and minikube
-`brew update`
-
-`brew install hyperkit`
-
-`brew install minikube`
-
-`kubectl`
-
-`minikube`
 
 ### create minikube cluster
 `minikube start --vm-driver=hyperkit`
@@ -24,8 +14,6 @@
 `minikube delete`
 
 `minikube start --vm-driver=hyperkit --v=7 --alsologtostderr`
-
-`minikube status`
 
 ### kubectl commands
 `kubectl get nodes`
@@ -86,6 +74,15 @@ sudo ip link set docker0 promisc on
 
 mvn clean install -DskipTests
 docker build -t caner-security/security .
+
+# kubectl port-forward kafka-broker0-56545d949b-dbr98 9092:9092
+# kubectl port-forward redis-59d58d6cff-fvxr8 6379:6379
+
+kubectl port-forward deployment/kafka-broker0 9092:9092
+kubectl port-forward deployment/redis 6379:6379
+# kubectl port-forward pod/caner-security-deployment-0 8080:8080
+
+
 
 
 kubectl apply -f k8s.yaml

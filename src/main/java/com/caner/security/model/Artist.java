@@ -1,13 +1,12 @@
-package com.caner.security.models;
+package com.caner.security.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.redis.core.RedisHash;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -20,9 +19,10 @@ public class Artist implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NonNull
+    @Column(nullable = false)
     private String name;
 
+    @Column(updatable = false)
     private String country;
 
     public Artist(String name, String country) {
@@ -39,4 +39,14 @@ public class Artist implements Serializable {
         return "{ARTIST: " + name + "}";
     }
 
+    @OneToMany(mappedBy = "artist")
+    private Collection<Song> song;
+
+    public Collection<Song> getSong() {
+        return song;
+    }
+
+    public void setSong(Collection<Song> song) {
+        this.song = song;
+    }
 }

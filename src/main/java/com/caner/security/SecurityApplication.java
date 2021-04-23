@@ -1,13 +1,15 @@
 package com.caner.security;
 
 import com.caner.security.kafka.KafkaConsumerProducer;
-import com.caner.security.models.Artist;
+import com.caner.security.model.Artist;
 import com.caner.security.redis.RedisClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,14 +18,18 @@ import org.springframework.scheduling.annotation.Scheduled;
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling
-// @EnableCaching
 public class SecurityApplication {
 
     private final Logger logger = LoggerFactory.getLogger(SecurityApplication.class);
 
-    @Autowired(required = false) private KafkaConsumerProducer kafkaProducer;
+    private final KafkaConsumerProducer kafkaProducer;
+    private final RedisClient redisClient;
 
-    @Autowired(required = false) private RedisClient redisClient;
+    public SecurityApplication(@Autowired(required = false)KafkaConsumerProducer kafkaProducer,
+                               @Autowired(required = false)RedisClient redisClient) {
+        this.kafkaProducer = kafkaProducer;
+        this.redisClient = redisClient;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(SecurityApplication.class, args);
@@ -48,6 +54,14 @@ public class SecurityApplication {
         }
 
         logger.warn("Schedule task finished");
+    }
+
+
+    @Bean
+    CommandLineRunner startup_runner() {
+        return args -> {
+            System.out.println("Execute at app startup");
+        };
     }
 
 }

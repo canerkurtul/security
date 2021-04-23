@@ -1,0 +1,89 @@
+# https://docs.platform9.com/v4.5/kubernetes/tutorials-deploy-redis-microservices-app
+## https://tech.ringieraxelspringer.com/blog/cloud/how-to-create-a-primary-replica-redis-cluster-in-kubernetes/r8lt028
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-master
+  labels:
+    name: redis-primary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: redis-primary
+  template:
+    metadata:
+      labels:
+        name: redis-primary
+    spec:
+      subdomain: primary
+      containers:
+        - name: redis
+          image: redis:5.0.7-alpine
+          command:
+            - "redis-server"
+          args:
+            - "--protected-mode"
+            - "no"
+          ports:
+            - containerPort: 6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-slave
+  labels:
+    name: redis-replica
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: redis-replica
+  template:
+    metadata:
+      labels:
+        name: redis-replica
+    spec:
+      subdomain: replica
+      containers:
+        - name: redis
+          image: redis:5.0.7-alpine
+          command:
+            - "redis-server"
+          args:
+            - "--slaveof"
+            - "rds-master.default.svc.cluster.local"
+            - "6379"
+            - "--protected-mode"
+            - "no"
+          ports:
+            - containerPort: 6379
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rds-master
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
+      name: redis
+  selector:
+    name: redis-primary
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rds-slave
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
+      name: redis
+  selector:
+    name: redis-replica

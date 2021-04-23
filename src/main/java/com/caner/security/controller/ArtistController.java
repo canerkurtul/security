@@ -1,6 +1,6 @@
 package com.caner.security.controller;
 
-import com.caner.security.models.Artist;
+import com.caner.security.model.Artist;
 import com.caner.security.repository.ArtistRepo;
 import com.caner.security.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;

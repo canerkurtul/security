@@ -1,8 +1,7 @@
 package com.caner.security.repository;
 
 
-import com.caner.security.models.Artist;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.caner.security.model.Artist;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
