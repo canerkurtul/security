@@ -4,6 +4,7 @@ import com.caner.security.model.Artist;
 import com.caner.security.repository.ArtistRepo;
 import com.caner.security.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +59,25 @@ public class ArtistController {
     @DeleteMapping(path = "/{id}")
     public void deleteById(@PathVariable(required = true) Long id) {
         artistService.deleteArtist(id);
+    }
+
+
+    @PostMapping(path = "/add" )
+    public ResponseEntity<Long> add(@RequestBody Artist artist) {
+        Long id = artistService.save(artist);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    }
+
+    @PutMapping(path = "/update" )
+    public ResponseEntity<Long> update(@RequestBody Artist artist) {
+        Long id = artistService.save(artist);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/delete/{id}" )
+    public ResponseEntity<?> update(@PathVariable Long id) {
+        artistService.deleteArtist(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

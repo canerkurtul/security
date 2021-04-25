@@ -24,9 +24,6 @@ import java.time.Duration;
 @EnableRedisRepositories()
 public class CacheableConfig {
 
-    @Autowired
-    private RedisTemplate<String, Object> objectRedisTemplate;
-
     @Bean(name = "ConcurrentMapCacheManager")
     @Primary
     public CacheManager cacheManager() {
@@ -36,7 +33,7 @@ public class CacheableConfig {
     @Bean(name = "RedisCacheManager")
     public RedisCacheManager cacheManagerRedis(JedisConnectionFactory jedisConnectionFactory) {
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                // .entryTtl(Duration.ofSeconds(6))
+                .entryTtl(Duration.ofSeconds(6))
                 .disableCachingNullValues();
 
         RedisCacheManager rcm = RedisCacheManager

@@ -21,7 +21,6 @@ public class ArtistService {
 
 
     @Cacheable(cacheManager = "RedisCacheManager", cacheNames = "cache-24")
-    @TimeToLive()
     public List<Artist> queryByName(String name) {
         List<Artist> lst = artistRepo.queryArtistsByNameLike("%" +name+ "%");
         myAsync.countAndPrintLog();
@@ -41,7 +40,7 @@ public class ArtistService {
     }
 
     public Long createNextArtist(boolean throwException) {
-        Artist a  = new Artist("Sanatçı " + System.currentTimeMillis(), "TR");
+        Artist a  = new Artist("Artist " + System.currentTimeMillis(), "TR");
         artistRepo.save(a);
         if (throwException) {
             throw new RuntimeException("RUNTIME EXCEPTION THROWN");
@@ -51,5 +50,10 @@ public class ArtistService {
 
     public void deleteArtist(Long id) {
         artistRepo.deleteById(id);
+    }
+
+    public Long save(Artist a) {
+        a  = artistRepo.save(a);
+        return a.getId();
     }
 }

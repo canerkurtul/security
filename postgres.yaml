@@ -1,0 +1,73 @@
+# https://severalnines.com/database-blog/using-kubernetes-deploy-postgresql
+# https://thenewstack.io/tutorial-deploy-postgresql-on-kubernetes-running-the-openebs-storage-engine/
+# https://github.com/mendix/kubernetes-howto/blob/master/postgres-deployment.yaml
+# https://www.bmc.com/blogs/kubernetes-postgresql/
+# https://humanitec.com/blog/deploy-with-kubectl-hands-on-with-kubernetes
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+    app: caner-app
+    tier: postgres
+data:
+  POSTGRES_DB: canerdb
+  POSTGRES_USER: caner
+  POSTGRES_PASSWORD: pwd
+  PGDATA: /c/Users/ttmkurtul/postgresql/data/pgdata
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  labels:
+    app: caner-app
+    tier: postgres
+spec:
+  type: NodePort
+  ports:
+    - port: 5432
+  selector:
+    app: caner-app
+    tier: postgres
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  serviceName: "postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caner-app
+      tier: postgres
+  template:
+    metadata:
+      labels:
+        app: caner-app
+        tier: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          ports:
+            - containerPort: 5432
+              name: postgredb
+          volumeMounts:
+            - name: postgredb
+              mountPath: /c/Users/ttmkurtul/postgresql
+              subPath: postgres
+  volumeClaimTemplates:
+    - metadata:
+        name: postgredb
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 100Mi

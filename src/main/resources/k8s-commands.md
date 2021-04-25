@@ -1,5 +1,5 @@
 #### https://minikube.sigs.k8s.io/docs/start/
-#### https://gitlab.com/nanuchi/youtube-tutorial-series/-/blob/master/basic-kubectl-commands/cli-commands.md
+#### https://gitlab.com/nanuchi/youtube-tutorial-series/-/blob/master/basic-kubectl-redis-slave/cli-redis-slave.md
 
 ### create minikube cluster
 `minikube start --vm-driver=hyperkit`
@@ -15,7 +15,7 @@
 
 `minikube start --vm-driver=hyperkit --v=7 --alsologtostderr`
 
-### kubectl commands
+### kubectl redis-slave
 `kubectl get nodes`
 
 `kubectl get pod`

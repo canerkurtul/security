@@ -1,6 +1,8 @@
 package com.caner.security.kafka;
 
 import com.caner.security.model.Artist;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 //        value = "spring.profiles.active",
 //        havingValue = "prod",
 //        matchIfMissing = true)
+@ConditionalOnExpression("'${spring.profiles.active}'!='local'")
 public class KafkaConsumerProducer {
 
     private KafkaTemplate<String, String> kafkaTemplate;

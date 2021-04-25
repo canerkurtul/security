@@ -2,6 +2,7 @@ package com.caner.security.redis;
 
 import com.caner.security.model.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.time.Duration;
 //        value = "spring.profiles.active",
 //        havingValue = "prod",
 //        matchIfMissing = true)
+@ConditionalOnExpression("'${spring.profiles.active}'!='local'")
 public class RedisClient {
 
     @Autowired

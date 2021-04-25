@@ -3,6 +3,7 @@ package com.caner.security.redis;
 import com.caner.security.model.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 //        value = "spring.profiles.active",
 //        havingValue = "prod",
 //        matchIfMissing = true)
+@ConditionalOnExpression("'${spring.profiles.active}'!='local'")
 public class RedisMessageSubscriber implements MessageListener {
 
     @Autowired

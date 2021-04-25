@@ -7,6 +7,7 @@
  * Ctrl + D                 -- duplicate lines
  * Ctrl + Backspace         -- Delete lines
  * Ctrl + Alt + Shift + U   -- pom.xml dependency analyzer
+ * Ctrl + P                 -- Show method parameters
  *
  * Multi line comment
  * Case sensitive calisiyor
