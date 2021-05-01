@@ -16,6 +16,11 @@ spec:
     spec:
       containers:
         - name: caner-security
+          env:
+            - name: kafka-url
+              value: kafka-service:9092
+            - name: redis-url
+              value: redis-service:6379
           image: caner-security/security
           imagePullPolicy: Never
           ports:

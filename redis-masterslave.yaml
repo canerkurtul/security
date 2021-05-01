@@ -63,7 +63,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rds-master
+  name: redis-service
 spec:
   type: LoadBalancer
   ports:
